@@ -33,31 +33,33 @@ public:
         ListNode *temp1=l1;
         ListNode *temp2=l2;
         int data=0;
-        while(temp1 && temp2)
+        while(temp1 || temp2)
         {
-        data+=(temp1->val+temp2->val);
+        int first=temp1?temp1->val:0;
+        int second=temp2?temp2->val:0;
+        data+=(first+second);
         int endDigit=data%10;
         insertAtEnd(endDigit);
         data=data/10;
-        temp1=temp1->next;
-        temp2=temp2->next;
+        temp1=temp1?temp1->next:NULL;
+        temp2=temp2?temp2->next:NULL;
         }
-        while(temp1)
-        {
-        data+=(temp1->val);
-        int endDigit=data%10;
-        insertAtEnd(endDigit);
-        data=data/10;
-        temp1=temp1->next;
-        }
-        while(temp2)
-        {
-        data+=(temp2->val);
-        int endDigit=data%10;
-        insertAtEnd(endDigit);
-        data=data/10;
-        temp2=temp2->next;
-        }
+        // while(temp1)
+        // {
+        // data+=(temp1->val);
+        // int endDigit=data%10;
+        // insertAtEnd(endDigit);
+        // data=data/10;
+        // temp1=temp1->next;
+        // }
+        // while(temp2)
+        // {
+        // data+=(temp2->val);
+        // int endDigit=data%10;
+        // insertAtEnd(endDigit);
+        // data=data/10;
+        // temp2=temp2->next;
+        // }
         while(data)
         {
         int endDigit=data%10;
