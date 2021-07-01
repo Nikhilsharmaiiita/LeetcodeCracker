@@ -6,21 +6,20 @@ public:
         {
             m[words[i]]++;
         }
-        auto comp=[](pair<int,string> a,pair<int,string> b){
-            if(a.first==b.first)
-                return a.second>b.second;
-            return a.first<b.first;
-        };
-        priority_queue<pair<int,string>,vector<pair<int,string>>,decltype(comp)> pq(comp);
+        //comp function
+       multiset<pair<int,string>> pq;
         for(auto it :m)
         {
-            pq.push({it.second,it.first});
+            pq.insert({-it.second,it.first});
+            if(pq.size()>k)
+            {
+                pq.erase(--pq.end());
+            }
         }
         vector<string> s;
-        for(int i=0;i<k;i++)
+        for(auto it:pq)
         {
-            s.push_back(pq.top().second);
-            pq.pop();
+            s.push_back(it.second);
         }
         return s;
     }
