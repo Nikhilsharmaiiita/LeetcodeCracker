@@ -6,7 +6,7 @@ public:
         {
             m[words[i]]++;
         }
-        //comp function
+    
        multiset<pair<int,string>> pq;
         for(auto it :m)
         {
@@ -16,11 +16,11 @@ public:
                 pq.erase(--pq.end());
             }
         }
+        
         vector<string> s;
         for(auto it:pq)
         {
             s.push_back(it.second);
         }
         return s;
-    }
-};
+    }};
