@@ -1,3 +1,4 @@
+[Discussion Post (created on 3/6/2021 at 3:24)](https://leetcode.com/problems/ugly-number-ii/discuss/1312120/C%2B%2B-Using-Set-or-simple-min-heap-idea)  
 <h2>264. Ugly Number II</h2><h3>Medium</h3><hr><div><p>An <strong>ugly number</strong> is a positive integer whose prime factors are limited to <code>2</code>, <code>3</code>, and <code>5</code>.</p>
 
 <p>Given an integer <code>n</code>, return <em>the</em> <code>n<sup>th</sup></code> <em><strong>ugly number</strong></em>.</p>
