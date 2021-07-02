@@ -1,15 +1,24 @@
-vector<int> freq(256,0);
+
 class Solution {
 public:
     string frequencySort(string s) {   
-for(int i=0;i<s.size();i++)
-    freq[s[i]]++;
-        sort(s.begin(),s.end(),[=](char x,char y){
-             if(freq[x]==freq[y])return x<y;
-             return freq[x]>freq[y];
-        });
-        for(int i=0;i<256;i++)
-    freq[i]=0;
+        unordered_map<char,int> freq;
+        for(int i=0;i<s.size();i++)
+           freq[s[i]]++;
+        multiset<pair<int,char>> st;
+        for(auto it:freq)
+        {
+            st.insert({-it.second,it.first});
+        }
+        int i=0;
+        for(auto it : st)
+        {
+            int x=abs(it.first);
+            while(x--)
+            {
+                s[i++]=it.second;
+            }
+        }
         return s;
     }
 };
