@@ -1,26 +1,23 @@
 class Solution {
 public:
-    void fun(vector<int> &nums,int start,vector<vector<int>> &res,vector<int> cont)
+void fun(vector<int> &nums,vector<int> &cont,vector<vector<int>> &res,int start)
+{
+    //base case
+    if(start==nums.size())
     {
-        int n=nums.size();
-        //base cont
-        if(start==n)
-        {
-            res.push_back(cont);
-            return;
-        }
-        //recuresive step
-        //item not include in the solution 
-        fun(nums,start+1,res,cont);
-        //item include in the solution
-        cont.push_back(nums[start]);
-        fun(nums,start+1,res,cont);
-        //cont.pop_back();
+        res.push_back(cont);
+        return;
     }
+    //rec step 
+    fun(nums,cont,res,start+1);
+    cont.push_back(nums[start]);
+    fun(nums,cont,res,start+1);
+    cont.pop_back();
+}
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> res;
         vector<int> cont;
-        fun(nums,0,res,cont);
+        fun(nums,cont,res,0);
         return res;
     }
 };
