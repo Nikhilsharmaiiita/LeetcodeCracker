@@ -1,76 +1,46 @@
 class LRUCache {
 public:
     list<int> l;
-    unordered_map<int, pair<int, list<int>::iterator>> m;
-    int c;
+    //key
+    unordered_map<int,pair<int,list<int>::iterator>> m;
+    // key,value,iterator
     
+    int c;
     LRUCache(int capacity) {
-        c = capacity;
+        c=capacity;
     }
     
     int get(int key) {
-        if (m.find(key) == m.end())
-            return -1;
-        
-        int res = m[key].first;
-        // Update this to be the most recent
-        // Erase
+        if(m.find(key)==m.end())return -1;
+        int ans=m[key].first;
         l.erase(m[key].second);
-        
-        // Insert at the head
         l.push_front(key);
-        
-        // Update the reference in the map
-        m[key].second = l.begin();
-        
-        return res;
+        m[key].second=l.begin();
+        return ans;
     }
     
     void put(int key, int value) {
-        // Update
-        if (m.find(key) != m.end()) {
-            // Erase
+        //if item is find in map 
+        if(m.find(key)!=m.end())
+        {
             l.erase(m[key].second);
-        
-            // Insert at the head
             l.push_front(key);
-        
-            // Update the reference in the map
-            m[key].second = l.begin();
-            
-            // Update the value
-            m[key].first = value;
+            m[key].first=value;
+            m[key].second=l.begin();
         }
-        else {
-            if (l.size() < c) {
-                // Brand new insert
-                // Cache is not full
-                // Insert at the head of the list
-                l.push_front(key);
-            
-                // Insert in the map
-                m[key] = make_pair(value, l.begin());    
-            }
-            else {
-                // Cache is full
-                // Remove the LRU entry
-                int k = l.back();
-                
-                // Remove from the list
-                l.pop_back();
-                
-                // Remove from the map
-                m.erase(k);
-                
-                // Insert
-                // Insert at the head of the list
-                l.push_front(key);
-            
-                // Insert in the map
-                m[key] = make_pair(value, l.begin()); 
-            } 
+        else if(l.size()<c)
+        {
+            l.push_front(key);
+            m[key]={value,l.begin()};
         }
-        
+        else 
+        {
+            int x=l.back();
+            l.pop_back();
+            m.erase(x);
+            l.push_front(key);
+            m[key]={value,l.begin()};
+        }
     }
 };
 
