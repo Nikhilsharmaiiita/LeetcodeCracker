@@ -10,9 +10,10 @@ public:
         }
         if(start==nums.size())
             return;
+        if(target<sum)return;
         //recusive step
         //not include
-            fun(nums,target,res,cont,start+1,sum);
+        fun(nums,target,res,cont,start+1,sum);
         if(sum+nums[start]<=target)
         {
             cont.push_back(nums[start]);
