@@ -10,22 +10,11 @@
  */
 class Solution {
 public:
-    int length(ListNode *x)
-    {
-        int cnt = 0;
-        ListNode *temp = x;
-        while (temp)
-        {
-            temp=temp->next;
-            cnt++;
-        }
-        return cnt;
-    }
-    ListNode * reverse(ListNode *x)
+    ListNode* rev(ListNode* root)
     {
         ListNode *p,*q,*r;
         q=r=NULL;
-        p=x;
+        p=root;
         while(p)
         {
             r=q;
@@ -34,47 +23,49 @@ public:
             q->next=r;
         }
         return q;
-        
     }
+    
+    int count(ListNode *root)
+    {
+        if(!root)return 0;
+        return 1+count(root->next);
+    }
+    
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        if(count(l1)<count(l2))return addTwoNumbers(l2,l1);
+        int length_1=count(l1);
+        int length_2=count(l2);
+        ListNode *head1=l1,*head2=l2;
         
-        int m = length(l1);
-        int n = length(l2);
-        
-        if (m<n)
-            return addTwoNumbers(l2,l1);
-        //l1 will be greater
-        ListNode *temp = l1;
-        int diff = m-n ;
-        while (diff--)
-            temp = temp->next;
-        
-        while (temp)
+        while(length_1 != length_2)
         {
-            temp->val +=l2->val;
-            temp  = temp->next;
-            l2 = l2->next;
+            head1=head1->next;
+            length_1--;
         }
-        ListNode *rev = reverse(l1);
-        ListNode *p ;
-        int carry = 0;
-        int sum = 0;
-        ListNode*head=rev;
-        while (rev)
-        {
-            p = rev;
-            sum=rev->val+carry;
-            rev->val = (sum)%10;
-            carry = (sum)/10;
-            rev = rev->next;
-        }
-        if (carry)
-        {
-            ListNode *x = new ListNode (carry);
-            p->next = x;
-        }
-        return reverse(head);
         
-        
+        while(head1)
+        {
+            head1->val+=head2->val;
+            head1=head1->next;
+            head2=head2->next;
+        }
+        l1=rev(l1);
+        int carry=0;
+        head1=l1;
+        while(head1)
+        {
+            int c=carry;
+            carry=(head1->val+carry)/10;
+            head1->val=(head1->val+c)%10;
+            if(!head1->next && carry)
+            {
+                ListNode *p=new ListNode(carry);
+                head1->next=p;
+                head1=head1->next;
+            }
+            head1=head1->next;
+        }
+        l1=rev(l1);
+        return l1;
     }
 };
