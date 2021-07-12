@@ -10,7 +10,6 @@ public:
         }
         if(start==nums.size())
             return;
-        if(target<sum)return;
         //recusive step
         //not include
         fun(nums,target,res,cont,start+1,sum);
