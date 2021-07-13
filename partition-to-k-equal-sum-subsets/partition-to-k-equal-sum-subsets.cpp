@@ -10,7 +10,7 @@ public:
     }
     
     bool backtrack(vector<int>& nums,vector<int>visited, int target, int curr_sum, int i, int k) {
-        if (k == 1) 
+        if (k == 0) 
             return true;
         
         if (curr_sum == target) 
