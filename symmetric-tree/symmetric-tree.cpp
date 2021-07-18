@@ -15,12 +15,9 @@ public:
     {
         //base case
         if(!p && !q)
-        {
            return true;
-        }
         if(!p || !q)
             return false;
-        
         //recursive step
         return p->val==q->val && helper(p->left,q->right) && helper(p->right,q->left);
     }
