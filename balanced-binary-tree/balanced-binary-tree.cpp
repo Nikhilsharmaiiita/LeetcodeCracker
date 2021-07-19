@@ -1,28 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    bool help(TreeNode *root,int &height)
+    bool fun(TreeNode *root,int &height)
     {
-        //base case
-        if(!root){  
+        //base case<=1
+        if(!root)
+        {
             height=0;
-            return true;}
+            return 1;
+        }
+        //rec step
+        int H_l,H_r;
+        bool l=fun(root->left,H_l);
+        bool R=fun(root->right,H_r);
         
-        //local copy of height and local copy of left result and right result
-        bool ans_l,ans_r;
-        int h_l,h_r;
-        //find left value
-        ans_l=help(root->left,h_l);
-        //find right value
-        ans_r=help(root->right,h_r);
+        height=1+max(H_l,H_r);
         
-        //update height
-        height= 1 + max(h_r,h_l);
-        
-        return ans_l  &&  ans_r && abs(h_r-h_l)<=1;
+        return l & R && abs(H_l-H_r)<=1;
     }
     bool isBalanced(TreeNode* root) {
         int height=0;
-    return     help(root,height);
-    
+        return fun(root,height);
     }
 };
