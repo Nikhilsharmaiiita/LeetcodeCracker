@@ -16,7 +16,7 @@ public:
     int maxPathSumHelper(TreeNode* root, int& max_sum_rooted) {
         if (!root) {
             max_sum_rooted = 0;
-            return -1005;
+            return -50000;
         }
         
         int max_sum_left, max_sum_root_left, max_sum_right, max_sum_root_right;
