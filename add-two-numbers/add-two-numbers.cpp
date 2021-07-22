@@ -1,71 +1,40 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
-    ListNode* head=NULL;
-    ListNode* cur=NULL;
-    void insertAtEnd(int data)
+    //this is the count the number of element in a list
+    int count(ListNode *head)
     {
-       ListNode *p=new(ListNode);
-       p->val=data;
-       p->next=NULL;
-        
-       if(head==NULL)
+        int sum=0;
+        while(head)
         {
-           head=p;
-           cur=p;  
+            sum++;
+            head=head->next;
         }
-        else
-        {
-        cur->next=p;
-        cur=p;}
+        return sum;
     }
-   
+    
+    
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        if(count(l1)<count(l2))return addTwoNumbers(l2,l1);
+        int carry=0;
         ListNode *temp1=l1;
         ListNode *temp2=l2;
-        int data=0;
-        while(temp1 || temp2)
+        while(temp1 || temp2 || carry)
         {
-        int first=temp1?temp1->val:0;
-        int second=temp2?temp2->val:0;
-        data+=(first+second);
-        int endDigit=data%10;
-        insertAtEnd(endDigit);
-        data=data/10;
-        temp1=temp1?temp1->next:NULL;
-        temp2=temp2?temp2->next:NULL;
+            int first=temp1?temp1->val:0;
+            int second=temp2?temp2->val:0;
+            carry=(carry+first+second);
+            int data=carry%10;
+            temp1->val=data;
+            carry/=10;
+            if(temp1->next==NULL && carry!=0)
+            {
+                ListNode * p=new ListNode(carry);
+                temp1->next=p;
+                carry/=10;
+            }
+            temp1=temp1?temp1->next:NULL;
+            temp2=temp2?temp2->next:NULL;
         }
-        // while(temp1)
-        // {
-        // data+=(temp1->val);
-        // int endDigit=data%10;
-        // insertAtEnd(endDigit);
-        // data=data/10;
-        // temp1=temp1->next;
-        // }
-        // while(temp2)
-        // {
-        // data+=(temp2->val);
-        // int endDigit=data%10;
-        // insertAtEnd(endDigit);
-        // data=data/10;
-        // temp2=temp2->next;
-        // }
-        while(data)
-        {
-        int endDigit=data%10;
-        insertAtEnd(endDigit);
-        data=data/10;
-        }
-        return head;
+        return l1;
     }
 };
