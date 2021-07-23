@@ -1,20 +1,19 @@
 class Solution {
 public:
+    void rev(ListNode **head,ListNode*prev,ListNode*cur)
+    {
+      if(cur)
+      {
+          rev(head,cur,cur->next);
+          cur->next=prev;
+      }
+      else 
+      {
+          *head=prev;
+      }
+    }
     ListNode* reverseList(ListNode* head) {
-        ListNode *p,*q,*r;
-        //p-> point to next node;
-        //q->cur node 
-        //r->prv node
-        
-        q=r=NULL;
-        p=head;
-        while(p)
-        {
-            r=q;
-            q=p;
-            p=p->next;
-            q->next=r;
-        }
-    return q;
+        rev(&head,NULL,head);
+        return head;
     }
 };
