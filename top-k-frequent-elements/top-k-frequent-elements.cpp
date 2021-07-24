@@ -6,16 +6,21 @@ public:
         {
             m[nums[i]]++;
         }
-        priority_queue<pair<int,int>> pq;
+        //heap type ? Max Heap
+        //mean heap 1 2 3 4 5
+        //1 2 3 4 5
+        //we want 5 4 3 2 1
+        multiset<pair<int,int>> pq;
         for(auto it:m)
         {
-            pq.push({it.second,it.first});
+            pq.insert({it.second,it.first});
         }
         vector<int> v;
         for(int i=0;i<k;i++)
         {
-            v.push_back(pq.top().second);
-            pq.pop();
+            pair<int,int> x=*(--pq.end());
+            v.push_back(x.second);
+            pq.erase(--pq.end());
         }
         return v;
     }
