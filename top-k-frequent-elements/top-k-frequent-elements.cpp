@@ -12,7 +12,9 @@ public:
         multiset<pair<int,int>> pq;
         for(auto it:m)
         {
-            pq.insert({-it.second,it.first});
+            pq.insert({it.second,it.first});
+            if(pq.size()>k)
+            pq.erase(pq.begin());
         }
         
         vector<int> v;
