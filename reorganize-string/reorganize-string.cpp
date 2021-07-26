@@ -8,9 +8,8 @@ public:
         
         //fill the priority queue
         for(auto it:m)
-        {
             pq.push({it.second,it.first});
-        }
+        
         string ans="";
         while(!pq.empty())
         {
