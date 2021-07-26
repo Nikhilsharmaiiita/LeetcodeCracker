@@ -8,7 +8,6 @@ public:
             count++;
             return;
         }
-        
         //rec step
         for(int i=1;i<=n;i++)
         {
