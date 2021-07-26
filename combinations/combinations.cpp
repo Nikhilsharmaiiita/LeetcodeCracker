@@ -9,6 +9,7 @@ public:
             return;
         }
         if(start==n+1)return;
+        
         //recursive solution 
         cont.push_back(start);
         fun(n,k,cont,res,start+1);
