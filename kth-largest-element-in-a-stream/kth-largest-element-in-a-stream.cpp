@@ -1,26 +1,21 @@
 class KthLargest {
 public:
-    priority_queue<int,vector<int>,greater<int>> pq;
-    int copy_k;
-    KthLargest(int k, vector<int>& nums)
-    {
-        copy_k=k;
-        for(int i=0;i<nums.size();i++)
+    multiset<int> pq;
+    int k_copy;
+    KthLargest(int k, vector<int>& nums) {
+        k_copy=k;
+        for(auto it:nums)
         {
-            pq.push(nums[i]);
+            pq.insert(it);
             if(pq.size()>k)
-            {
-                pq.pop();
-            }
+            pq.erase(pq.begin());
         }
     }
     
     int add(int val) {
-        pq.push(val);
-            if(pq.size()>copy_k)
-            {
-                pq.pop();}
-        return pq.top();
+        pq.insert(val);
+        if(pq.size()>k_copy)pq.erase(pq.begin());
+        return *pq.begin();
     }
 };
 
