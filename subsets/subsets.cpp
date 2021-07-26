@@ -18,7 +18,6 @@ void fun(vector<int> &nums,int start,vector<vector<int>> &res,vector<int> &cont)
 vector<vector<int>> subsets(vector<int> &A) {
     vector<vector<int>> res;
     vector<int> cont;
-    sort(A.begin(),A.end());
     fun(A,0,res,cont);
     return res;
 }
