@@ -12,6 +12,7 @@ public:
         }
         return true;
     }
+    
     void fun(vector<vector<string>> &res,vector<string>  &cont,string &s,int start)
    {
         int n=s.size(); 
