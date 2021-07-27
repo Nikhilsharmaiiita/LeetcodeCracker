@@ -1,28 +1,33 @@
 class Solution {
 public:
-    void fun(vector<int> &nums,vector<vector<int>> &res,vector<int> &cont,int j)
+    void fun(vector<vector<int>> &res,vector<int> &cont,vector<bool> &vis,vector<int> &nums)
     {
-        int n=nums.size();
         //base case
+        int n=nums.size();
         if(cont.size()==n)
         {
             res.push_back(cont);
-            return;
+            return ;
         }
-        //recursive case
-        for(int i=j;i<n;i++)
+        //rec step
+        
+        for(int i=0;i<n;i++)
         {
+            if(!vis[i])
+            {
+                vis[i]=true;
                 cont.push_back(nums[i]);
-                swap(nums[i],nums[j]);
-                fun(nums,res,cont,j+1);
+                fun(res,cont,vis,nums);
                 cont.pop_back();
-                swap(nums[i],nums[j]);
+                vis[i]=false;
             }
         }
+    }
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> res;
+     vector<vector<int>> res;
         vector<int> cont;
-        fun(nums,res,cont,0);
+        vector<bool> vis(nums.size(),false);
+        fun(res,cont,vis,nums);
         return res;
     }
 };
