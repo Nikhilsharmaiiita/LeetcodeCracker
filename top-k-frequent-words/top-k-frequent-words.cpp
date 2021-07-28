@@ -6,21 +6,22 @@ public:
         {
             m[words[i]]++;
         }
-    
-       multiset<pair<int,string>> pq;
+        auto comp=[](pair<int,string> a,pair<int,string> b){
+            if(a.first==b.first)
+                return a.second>b.second;
+            return a.first<b.first;
+        };
+        priority_queue<pair<int,string>,vector<pair<int,string>>,decltype(comp)> pq(comp);
         for(auto it :m)
         {
-            pq.insert({-it.second,it.first});
-            if(pq.size()>k)
-            {
-                pq.erase(--pq.end());
-            }
+            pq.push({it.second,it.first});
         }
-        
         vector<string> s;
-        for(auto it:pq)
+        for(int i=0;i<k;i++)
         {
-            s.push_back(it.second);
+            s.push_back(pq.top().second);
+            pq.pop();
         }
         return s;
-    }};
+    }
+};
