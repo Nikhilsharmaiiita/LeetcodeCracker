@@ -19,13 +19,6 @@ public:
             pq.insert({nums1[p.first]+nums2[p.second+1],{p.first,p.second+1}});
             k--;
         }
-        while(pq.size() && k)
-        {
-                    auto p=pq.begin()->second;
-                    ans.push_back({nums1[p.first],nums2[p.second]});
-                    pq.erase(pq.begin());
-                    k--;
-        }
         return ans;
     }
 };
