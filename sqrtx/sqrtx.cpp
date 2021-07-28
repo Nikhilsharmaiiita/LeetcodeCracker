@@ -1,6 +1,13 @@
 class Solution {
 public:
     int mySqrt(int x) {
-        return pow(x,0.5);
+        long long lo=0,hi=x,mid;
+        while(lo<hi)
+        {
+            mid=lo+(hi-lo+1)/2;
+            if(mid*mid<=x)lo=mid;
+            else hi=mid-1;
+        }
+        return lo;
     }
 };
