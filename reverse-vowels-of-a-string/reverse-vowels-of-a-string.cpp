@@ -1,20 +1,34 @@
 class Solution {
 public:
     string reverseVowels(string s) {
-        int n=s.size();
-        vector<char> c;
-        for(int i=0;i<n;i++)
+        unordered_set<char> st;
+        st.insert('a');
+        st.insert('e');
+        st.insert('i');
+        st.insert('o');
+        st.insert('u');
+        st.insert('A');
+        st.insert('E');
+        st.insert('I');
+        st.insert('O');
+        st.insert('U');
+        
+        int i=0,j=s.size()-1;
+        while(i<j)
         {
-            if(s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u' ||s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' ||s[i]=='U')
-                c.push_back(s[i]);
-        }
-        for(int i=0;i<n;i++)
-        {
-            if(s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u' ||s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' ||s[i]=='U')
+            if(st.find(s[i])!=st.end() && st.find(s[j])!=st.end())
             {
-                s[i]=c[c.size()-1];
-                c.pop_back();
-            }     
+                swap(s[i],s[j]);
+                i++;
+                j--;
+            }
+            else if(st.find(s[i])!=st.end())j--;
+            else if(st.find(s[j])!=st.end())i++;
+            else
+            {
+                i++;
+                j--;
+            }
         }
         return s;
     }
