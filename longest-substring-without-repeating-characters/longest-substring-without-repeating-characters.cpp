@@ -6,11 +6,9 @@ public:
         vector<int> freq(256,0);
         int max_win=INT_MIN;
         int i=0;
-        int flag=0;
         while(i<n)
         {
             freq[s[i]]++;
-
             if(freq[s[i]]>1)
             {
                 max_win=max(max_win,i-j);
@@ -19,8 +17,8 @@ public:
                     freq[s[j]]--;
                     j++;
                 }
-                flag=1;
             }
+            else
             max_win=max(max_win,i-j+1);
             i++;
         }
