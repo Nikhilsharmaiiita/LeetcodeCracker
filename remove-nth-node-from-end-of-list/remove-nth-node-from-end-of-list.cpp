@@ -10,46 +10,31 @@
  */
 class Solution {
 public:
-    //this is used for counting
-    int count(ListNode *head)
-    {
-        int sum=0;
-        while(head)
-        {
-            sum++;
-            head=head->next;
-        }
-        return sum;
-    }
-    
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        int cnt=count(head)-n;
-        if(cnt==0)return head->next;
-        ListNode *ans=head;
-        while(cnt>1)
-        {   cnt--;
-            head=head->next;
+        int x=n-1;
+        ListNode* p1,*p2;
+        p1=head;
+        p2=head;
+        while(x--)
+        {
+            p1=p1->next;
         }
-        head->next=head->next?head->next->next:NULL;
-        return ans;
-        
-        
-        // ListNode* p1,*p2;
-        // if(!head->next && n==1)return NULL;
-        // p1=p2=head;
-        // int x=n;
-        // while(n>1)
-        // {
-        //     p2=p2->next;
-        //     n--;
-        // }
-        // while(p2->next&&p2->next->next)
-        // {
-        //     p2=p2->next;
-        //     p1=p1->next;
-        // }
-        // if(!p2->next)head=head->next;
-        // else p1->next=p1->next->next;
-        // return head;
+        if(p1->next==NULL)
+        {
+             head=head->next;
+             return head;
+        }
+        while(p1->next->next!=NULL)
+        {
+          p1=p1->next;
+          p2=p2->next;
+        }
+        if(p2->next!=NULL)
+        {
+            p2->next=p2->next->next;
+        }
+        else
+            p2->next=NULL;
+        return head;
     }
 };
