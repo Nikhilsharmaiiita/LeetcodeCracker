@@ -1,21 +1,20 @@
 class KthLargest {
 public:
-    multiset<int> pq;
-    int k_copy;
-    KthLargest(int k, vector<int>& nums) {
-        k_copy=k;
+    int k;
+    multiset<int> m;
+    KthLargest(int k1, vector<int>& nums) {
+        k=k1;
         for(auto it:nums)
-        {
-            pq.insert(it);
-            if(pq.size()>k)
-            pq.erase(pq.begin());
-        }
+        {m.insert(it);
+        if(m.size()>k)
+            m.erase(m.begin());}
     }
     
     int add(int val) {
-        pq.insert(val);
-        if(pq.size()>k_copy)pq.erase(pq.begin());
-        return *pq.begin();
+        m.insert(val);
+        if(m.size()>k)
+        m.erase(m.begin());
+        return *(m.begin());
     }
 };
 
