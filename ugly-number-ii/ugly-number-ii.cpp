@@ -1,9 +1,9 @@
 class Solution {
 public:
     int nthUglyNumber(int n) {
+        long long x=1;
         set<long long> s;
         n--;
-        long long x=1;
         while(n--)
         {
             s.insert(x*2);
@@ -12,6 +12,6 @@ public:
             x=*s.begin();
             s.erase(s.begin());
         }
-        return (int)x;
+        return x;
     }
 };
