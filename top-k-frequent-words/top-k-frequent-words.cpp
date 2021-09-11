@@ -2,26 +2,25 @@ class Solution {
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
         unordered_map<string,int> m;
-        for(int i=0;i<words.size();i++)
+        multiset<pair<int,string>> pq;
+        for(auto it:words)
         {
-            m[words[i]]++;
+            m[it]++;
         }
-        auto comp=[](pair<int,string> a,pair<int,string> b){
-            if(a.first==b.first)
-                return a.second>b.second;
-            return a.first<b.first;
-        };
-        priority_queue<pair<int,string>,vector<pair<int,string>>,decltype(comp)> pq(comp);
-        for(auto it :m)
+        for(auto it:m)
         {
-            pq.push({it.second,it.first});
+            pq.insert({-it.second,it.first});
+            if(pq.size()>k)
+            {
+                pq.erase(--pq.end());
+            }
         }
-        vector<string> s;
-        for(int i=0;i<k;i++)
+        vector<string> ans;
+        while(pq.size())
         {
-            s.push_back(pq.top().second);
-            pq.pop();
+            ans.push_back((*pq.begin()).second);
+            pq.erase(pq.begin());
         }
-        return s;
+        return ans;
     }
 };
