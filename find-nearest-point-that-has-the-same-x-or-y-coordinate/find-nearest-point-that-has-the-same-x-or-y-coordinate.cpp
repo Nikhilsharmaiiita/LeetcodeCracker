@@ -6,14 +6,10 @@ public:
         {
             if(points[i][0]==x || points[i][1]==y)
             {
-                int dis=abs(points[i][0]-x)+abs(points[i][1]-y);
-                pq.insert({dis,i});
-            }
-            if(pq.size()>1)
-            {
-                pq.erase(--pq.end());
+                pq.insert({abs(x-points[i][0])+abs(y-points[i][1]),i});
             }
         }
-        return pq.size()?pq.begin()->second:-1;
+        if(pq.size()==0)return -1;
+        return (*pq.begin()).second;
     }
 };
