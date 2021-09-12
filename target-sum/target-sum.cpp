@@ -6,14 +6,14 @@ public:
         for(int i=0;i<n;i++)
         sum+=nums[i];
         
-        if((sum+target)%2)return 0;
+        if((abs(sum+target))%2)return 0;
         
         sum=(sum+target)/2;
         int count0=0;
         
         for(int i=0;i<n;i++)
             if(nums[i]==0)count0++;
-        
+        if(sum<0)return 0;
         vector<vector<int>> dp(n+1,vector<int> (sum+1,0));
         for(int i=0;i<n+1;i++)dp[i][0]=1;
         
