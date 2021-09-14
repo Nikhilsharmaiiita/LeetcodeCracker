@@ -1,29 +1,26 @@
 class Solution {
 public:
-    void fun(vector<int> &nums, vector<vector<int>> &res,vector<int> &cont,int start)
+    void fun(vector<int> &nums,int start,vector<vector<int>> & res,vector<int>  cont)
     {
-        int n=nums.size();
         //base case
-        if(start==n)
+        if(start==nums.size())
         {
             res.push_back(cont);
             return;
         }
-        //recursive step 
-        //item include
+        //rec step
         cont.push_back(nums[start]);
-        fun(nums,res,cont,start+1);
+        fun(nums,start+1,res,cont);
         cont.pop_back();
-        //item not include in cont
         int j=start;
-        while(j<n-1 && nums[j]==nums[j+1])j++;
-        fun(nums,res,cont,j+1);
+        while(j<nums.size()-1 && nums[j]==nums[j+1])j++;
+        fun(nums,j+1,res,cont);
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         vector<vector<int>> res;
         vector<int> cont;
         sort(nums.begin(),nums.end());
-        fun(nums,res,cont,0);
+        fun(nums,0,res,cont);
         return res;
     }
 };
