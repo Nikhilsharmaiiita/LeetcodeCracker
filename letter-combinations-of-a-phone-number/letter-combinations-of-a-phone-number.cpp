@@ -1,41 +1,41 @@
 class Solution {
 public:
-    vector<string> digit_to_string;
-    void fun_map()
+    unordered_map<int,string> mp;
+    void insmap()
     {
-        digit_to_string.resize(10);
-        digit_to_string[2]="abc";
-        digit_to_string[3]="def";
-        digit_to_string[4]="ghi";
-        digit_to_string[5]="jkl";
-         digit_to_string[6]="mno";
-         digit_to_string[7]="pqrs";
-         digit_to_string[8]="tuv";
-         digit_to_string[9]="wxyz";
+        mp[0]="";
+        mp[1]="";
+        mp[2]="abc";
+        mp[3]="def";
+        mp[4]="ghi";
+        mp[5]="jkl";
+        mp[6]="mno";
+        mp[7]="pqrs";
+        mp[8]="tuv";
+        mp[9]="wxyz";
     }
-    void f(string &digits,int start,string &cont,vector<string> &res)
+    void fun(string &nums,int start,vector<string> &ans,string &cont)
     {
         //base case
-        if(start==digits.size())
+        if(cont.size()==nums.size())
         {
-            res.push_back(cont);
+            ans.push_back(cont);
             return;
         }
-        for(int i=0;i<digit_to_string[digits[start]-'0'].size();i++)
+        //rec step
+        for(int i=0;i<mp[nums[start]-'0'].size();i++)
         {
-            cont.push_back(digit_to_string[digits[start]-'0'][i]);
-            f(digits,start+1,cont,res);
+            cont.push_back(mp[nums[start]-'0'][i]);
+            fun(nums,start+1,ans,cont);
             cont.pop_back();
         }
     }
-    
-        vector<string> letterCombinations(string digits) {
-        vector<string> res;
-            if(digits.size()==0)return {};
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        if(digits.size()==0)return {};
         string cont;
-        fun_map();
-        f(digits,0,cont,res);
-        return res;
-        
+        insmap();
+        fun(digits,0,ans,cont);
+        return ans;
     }
 };
