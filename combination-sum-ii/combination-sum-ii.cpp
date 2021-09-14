@@ -1,34 +1,32 @@
 class Solution {
 public:
-    void fun(vector<int> &nums,int target,vector<vector<int>> &res,vector<int> &cont,int start,int sum)
+     void fun(vector<int> &nums,int target,int sum,int start,vector<vector<int>> &res,vector<int> &cont)
     {
-        //base case 
+        //basecase
         if(sum==target)
         {
             res.push_back(cont);
             return;
         }
-        if(start>=nums.size())
-            return;
-        //recusive step 
-        //include the element 
-        if(sum+nums[start]<=target){
-        cont.push_back(nums[start]);
-        fun(nums,target,res,cont,start+1,sum+nums[start]);
-        cont.pop_back();
+        if(start==nums.size())return;
+        //rec step
+        if(sum+nums[start]<=target)
+        {
+            cont.push_back(nums[start]);
+            fun(nums,target,sum+nums[start],start+1,res,cont);
+            cont.pop_back();
         }
-        //not include the element 
         int j=start;
-        int n=nums.size();
-        while(j<n-1 && nums[j]==nums[j+1])j++;
-        fun(nums,target,res,cont,j+1,sum);        
+        while(j<nums.size()-1 && nums[j]==nums[j+1])j++;
+        fun(nums,target,sum,j+1,res,cont);
     }
-    vector<vector<int>> combinationSum2(vector<int>& c, int target) {
-        sort(c.begin(),c.end());
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         vector<vector<int>> res;
         vector<int> cont;
-        fun(c,target,res,cont,0,0);
-        
-        return res;
+        int sum=0;
+        sort(candidates.begin(),candidates.end());
+        fun(candidates,target,sum,0,res,cont);
+        return res; 
     }
+    
 };
