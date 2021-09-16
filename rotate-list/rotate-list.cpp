@@ -1,31 +1,41 @@
 class Solution {
 public:
-    ListNode* rotateRight(ListNode* head, int k) {
+    int count(ListNode *head)
+    {
         int count=0;
-        if(!head || !head->next)return head;
-        ListNode *p=head;
-        while(p)
+        while(head)
         {
             count++;
-            p=p->next;
+            head=head->next;
         }
-        k=k%count;
-        int x=count-k;
-        if(x==count)return head;
+        return count;
+    }
+    ListNode* rev(ListNode*head,ListNode*point)
+    {
+        ListNode*p,*q,*r;
+        q=r=point;
         p=head;
-        while(x>1)
+        while(p!=point)
         {
-            x--;
+            r=q;
+            q=p;
             p=p->next;
+            q->next=r;
         }
-        ListNode*q=p->next;
-        p->next=NULL;
-        p=q;
-        while(p->next)
-        {
-            p=p->next;
-        }
-        p->next=head;
         return q;
+    }
+    ListNode* rotateRight(ListNode* head, int k) {
+          if(!head || !head->next)return head;
+          int cnt=0;
+          cnt=count(head);
+          head=rev(head,NULL);
+          k=k%cnt;
+          ListNode*point=head;
+          int flag=0;
+          while(k--)
+          {point=point->next;flag=1;}
+          ListNode*l1=rev(head,point);
+         if(flag==1) head->next=rev(point,NULL);
+          return flag==0?rev(point,NULL):l1;
     }
 };
