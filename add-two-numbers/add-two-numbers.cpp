@@ -1,40 +1,49 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    //this is the count the number of element in a list
-    int count(ListNode *head)
+    int count(ListNode*head)
     {
-        int sum=0;
-        while(head)
+        ListNode*temp=head;
+        int count=0;
+        while(temp)
         {
-            sum++;
-            head=head->next;
+            temp=temp->next;
+            count++;
         }
-        return sum;
+        return count;
     }
-    
-    
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        if(count(l1)<count(l2))return addTwoNumbers(l2,l1);
+        if(count(l2)>count(l1))
+        return addTwoNumbers(l2,l1);
+        ListNode* p=l1;
         int carry=0;
-        ListNode *temp1=l1;
-        ListNode *temp2=l2;
-        while(temp1 || temp2 || carry)
+        while(l1 || l2 || carry)
         {
-            int first=temp1?temp1->val:0;
-            int second=temp2?temp2->val:0;
-            carry=(carry+first+second);
-            int data=carry%10;
-            temp1->val=data;
-            carry/=10;
-            if(temp1->next==NULL && carry!=0)
+            int first=l1?l1->val:0;
+            int second=l2?l2->val:0;
+            int sum=(first+second+carry);
+            if(l1)
+            l1->val=sum%10;
+            carry=sum/10;
+            if(l1->next==NULL && carry)
             {
-                ListNode * p=new ListNode(carry);
-                temp1->next=p;
-                carry/=10;
+               ListNode* new_node=new ListNode(carry);
+               l1->next=new_node;
+               l1=l1->next;
+               carry=0;
             }
-            temp1=temp1?temp1->next:NULL;
-            temp2=temp2?temp2->next:NULL;
+            l1=l1?l1->next:NULL;
+            l2=l2?l2->next:NULL;
         }
-        return l1;
+        return p;
     }
 };
