@@ -1,30 +1,56 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    int count(ListNode *p)
+    ListNode* rev(ListNode* head,ListNode*slow)
     {
-        int count=0;
-        while(p)
+        ListNode*p,*q,*r;
+        r=q=NULL;
+        p=head;
+        while(p!=slow)
         {
-            count++;
+            r=q;
+            q=p;
             p=p->next;
+            q->next=r;
         }
-        return count;
+        return q;
     }
     bool isPalindrome(ListNode* head) {
-         int cnt=count(head);
-         stack<int> s;
-         int x=cnt/2;
-        while(x--)
+     ListNode*slow,*fast;
+        slow=fast=head;
+        while(fast&&fast->next)
         {
-            s.push(head->val);
-            head=head->next;
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        if(cnt%2==1)head=head->next;
-        while(head)
+        ListNode*point=rev(head,slow);
+        if(!fast)
         {
-            if(s.top()!=head->val)return false;
-            head=head->next;
-            s.pop();
+            while(point)
+            {
+                if(point->val!=slow->val)return false;
+                point=point->next;
+                slow=slow->next;
+            }
+        }
+        else
+        {
+            slow=slow->next;
+            while(point)
+            {
+                if(point->val!=slow->val)return false;
+                point=point->next;
+                slow=slow->next;
+            }
         }
         return true;
     }
