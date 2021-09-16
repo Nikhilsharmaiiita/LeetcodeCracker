@@ -10,28 +10,11 @@
  */
 class Solution {
 public:
-    ListNode* swapPairs(ListNode* head) {
+         ListNode* swapPairs(ListNode* head) {
         if(!head || !head->next)return head;
-        vector<ListNode*> st;
-        ListNode dummy(5);
-        ListNode* p=&dummy;
-        while(head)
-        {
-            st.push_back(head);
-            head=head->next;
-            if(head)
-            {
-            st.push_back(head);
-            head=head->next;
-            }
-            while(st.size())
-            {
-                p->next=st[st.size()-1];
-                st.pop_back();
-                p=p->next;
-            }
-            if(!head)p->next=NULL;
-        }
-        return dummy.next;
-    }
+        ListNode *p=head->next;
+        head->next=swapPairs(p->next);
+        p->next=head;
+        return p;
+    }   
 };
