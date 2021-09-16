@@ -1,50 +1,34 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
+
 class Solution {
 public:
+   ListNode* rev(ListNode*left,ListNode*right)
+    {
+        ListNode*p,*q,*r;
+        r=NULL;
+        q=right;
+        p=left;
+       while(p!=right)
+       {
+           r=q;
+           q=p;
+           p=p->next;
+           q->next=r;
+       }
+       return q;
+    }
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         ListNode*p,*q,*r;
-        ListNode *temp1=head;
-        //find possition of left
-        while(left>2)
+        ListNode*head1=head,*head2=head;
+        ListNode*node=NULL;
+        while(--left&&--right)
         {
-            temp1=temp1->next;
-            left--;
+         node=head1;
+         head1=head1->next;
+         head2=head2->next;
         }
-        ListNode *temp2=head;
-        
-        //find possition of right
-        while(right>1)
-        {
-            temp2=temp2->next;
-            right--;
-        }
-        
-        //this code for reverseal
-        p=left==1?temp1:temp1->next;
-        q=temp2->next;
-        r=temp2->next;
-        ListNode*xy=temp2->next;
-        while(p!=xy)
-        {
-            r=q;
-            q=p;
-            p=p->next;
-            q->next=r;
-        }
-        
-        //testing for single node 
-        if(left==1)head=q;
-        else{
-        temp1->next=q;}
+        while(--right)head2=head2->next;
+        if(node)node->next=rev(head1,head2->next);
+        else head=rev(head1,head2->next);
         return head;
     }
 };
