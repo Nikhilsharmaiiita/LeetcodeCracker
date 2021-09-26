@@ -1,12 +1,8 @@
 class Solution {
 public:
     vector<vector<int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-    // f(int x, int y, int z)
-    // x <-- IN (read only)
-    // y <-- OUT (return values)
-    // z <-- IN/OUT
-    bool f(vector<vector<char>>& board, int start_i, int start_j, vector<vector<bool>>& visited, string &word, int pos) {
-        
+    
+    bool f(vector<vector<char>>& board, int start_i, int start_j, vector<vector<bool>>& visited, string &word, int pos) {    
         if(pos == word.size())
             return true;
         
@@ -26,8 +22,7 @@ public:
             visited[x][y] = true;
             res = res || f(board, x, y, visited, word, pos+1);
             visited[x][y] = false;
-        }
-        
+        } 
         return res;
         
     }
