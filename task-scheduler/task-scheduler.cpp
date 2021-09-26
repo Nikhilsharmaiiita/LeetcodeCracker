@@ -1,16 +1,22 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        int m[26]={0};
-        for(char c:tasks)
-            m[c-'A']++;
-        sort(m,m+26);
-        int max_val=m[25]-1;
-        int slots = max_val*n;
+        vector <int> m(26,0);
+        for(int i = 0; i < tasks.size(); i++){
+            m[tasks[i]-'A']++;
+        }
         
-        for(int i=0;i<=24;i++)
-            slots-=min(m[i],max_val);
+        sort(m.rbegin(),m.rend());
         
-        return slots>0 ? slots+tasks.size() : tasks.size();
+        int f = m[0];
+        
+        int idle_time = (f - 1) * n;
+        for(int i = 1; i < m.size(); i++){
+            idle_time -= min(f - 1, m[i]);
+            if(idle_time < 0)
+                return tasks.size();
+        }
+        
+        return tasks.size() + idle_time;
     }
 };
